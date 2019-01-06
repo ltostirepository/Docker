@@ -1,8 +1,10 @@
 FROM ubuntu:latest
 
-RUN apt-get clean && apt-get update
+RUN apt-get clean 
+RUN apt-get update
+
 RUN apt-get install -qy nano \
-	mlocate \
+    	mlocate \
 	git \
 	subversion \
 	build-essential \
@@ -10,6 +12,17 @@ RUN apt-get install -qy nano \
 	python \
 	python-pip
 
+RUN pip install jupyter 
+
+RUN apt-get install -y  dpkg-dev cmake g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev
+
+RUN apt-get install -y  gfortran libssl-dev libpcre3-dev \
+    xlibmesa-glu-dev libglew1.5-dev libftgl-dev \
+    libmysqlclient-dev libfftw3-dev libcfitsio-dev \
+    graphviz-dev libavahi-compat-libdnssd-dev \
+    libldap2-dev python-dev libxml2-dev libkrb5-dev \
+    libgsl0-dev libqt4-dev
+    
 RUN cd /tmp \
 	&& wget http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio_latest.tar.gz \
 	&& tar -xvf cfitsio_latest.tar.gz \
@@ -37,5 +50,17 @@ RUN cd /tmp \
         && make \
         && make install \
         && cd ..
- 
+
+RUN pip install astropy gammapy numpy matplotlib scipy panda  sklearn 
+
+# RUN cd \
+#	&& wget https://root.cern.ch/download/root_v6.12.04.source.tar \
+#        && tar -xvf root_v6*.tar \
+#        && mkdir root_cern \
+#	&& cd root_cern \
+#        && cmake  ../root-* \
+#        && cmake --build . \
+#        && cd ..
+
+
 RUN rm -rf /tmp/*
