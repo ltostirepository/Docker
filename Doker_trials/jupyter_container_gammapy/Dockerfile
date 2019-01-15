@@ -81,6 +81,7 @@ RUN conda install -c anaconda numpy
 RUN conda install -c conda-forge matplotlib 
 RUN conda install -c astropy naima
 RUN conda install -c anaconda pandas 
+RUN conda install -c astropy iminuit
 
 RUN apt-get install curl
 RUN curl -O https://gammapy.org/download/install/gammapy-0.9-environment.yml
