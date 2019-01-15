@@ -71,27 +71,15 @@ RUN cd /tmp \
 ENV GAMMALIB=/usr/local/gamma
 RUN /bin/bash -c "source $GAMMALIB/bin/gammalib-init.sh"
 
-RUN cd /tmp \
-        && wget http://cta.irap.omp.eu/ctools/releases/ctools/ctools-1.5.2.tar.gz \
-        && tar -xvf ctools*.gz \
-        && cd ctools* \
-        && ./configure \
-        && make \
-	&& make check \
-        && make install \
-        && cd ..
+#RUN apt-get install libhdf5
+#RUN pip install h5py 
+RUN git clone https://github.com/gammapy/gammapy-extra.git
+RUN git clone https://github.com/gammapy/gamma-cat.git
+#RUN pip install matplotlib numpy naima
 
-#RUN pip install numpy matplotlib scipy pandas astropy sklearn
-
-# RUN cd \
-#       && wget https://root.cern.ch/download/root_v6.12.04.source.tar \
-#        && tar -xvf root_v6*.tar \
-#        && mkdir root_cern \
-#       && cd root_cern \
-#        && cmake  ../root-* \
-#        && cmake --build . \
-#        && cd ..
-
+RUN conda install -c anaconda numpy
+RUN conda install -c conda-forge matplotlib 
+RUN conda install -c astropy naima
 
 RUN apt-get install curl
 RUN curl -O https://gammapy.org/download/install/gammapy-0.9-environment.yml
@@ -103,12 +91,5 @@ RUN /bin/bash -c 'source activate gammapy-0.9'
 
 RUN conda install -c conda-forge gammapy
 
-#RUN pip install gammapy
-#RUN gammapy info --dependencies
-#RUN python -c 'import gammapy; gammapy.test()'
-
 
 # fine aggiunto io
-
-# Switch back to jovyan to avoid accidental container runs as root
-#USER $NB_UID

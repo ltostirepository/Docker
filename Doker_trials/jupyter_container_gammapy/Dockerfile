@@ -71,6 +71,16 @@ RUN cd /tmp \
 ENV GAMMALIB=/usr/local/gamma
 RUN /bin/bash -c "source $GAMMALIB/bin/gammalib-init.sh"
 
+#RUN apt-get install libhdf5
+#RUN pip install h5py 
+RUN git clone https://github.com/gammapy/gammapy-extra.git
+RUN git clone https://github.com/gammapy/gamma-cat.git
+#RUN pip install matplotlib numpy naima
+
+RUN conda install -c anaconda numpy
+RUN conda install -c conda-forge matplotlib 
+RUN conda install -c astropy naima
+RUN conda install -c anaconda pandas 
 
 RUN apt-get install curl
 RUN curl -O https://gammapy.org/download/install/gammapy-0.9-environment.yml
@@ -84,6 +94,3 @@ RUN conda install -c conda-forge gammapy
 
 
 # fine aggiunto io
-
-# Switch back to jovyan to avoid accidental container runs as root
-USER $NB_UID
